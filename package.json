@@ -1,0 +1,37 @@
+{
+  "name": "desafio SQL",
+  "version": "1.0.0",
+  "description": "Desafio SQL - Coderhouse",
+  "main": "app.js",
+  "scripts": {
+    "create": "node loadDB.js",
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelh200/backend-coderhouse.git"
+  },
+  "keywords": [
+    "coderhouse",
+    "backend"
+  ],
+  "author": "Angel Huamani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelh200/backend-coderhouse/issues"
+  },
+  "homepage": "https://github.com/angelh200/backend-coderhouse#readme",
+  "dependencies": {
+    "dotenv": "~16.0.1",
+    "express": "~4.18.1",
+    "express-handlebars": "~6.0.6",
+    "faker": "~5.5.3",
+    "mongoose": "~6.5.2",
+    "normalizr": "^3.6.2",
+    "socket.io": "~4.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "~2.0.16"
+  }
+}
