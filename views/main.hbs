@@ -1,4 +1,7 @@
   {{> navbar}}
+  {{#if name}}
+    {{> welcome user=user}}
+  {{/if}}
   <div class="container-fluid">
     <div class="row mt-4 justify-content-center">
       <div class="col-6 form-container">
@@ -55,3 +58,4 @@
       </div>
     </div>
   </div>
+  <script src="./index.js"></script>

@@ -2,6 +2,10 @@
 require('dotenv').config();
 
 const express =require('express');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
 const { Server: IOServer } = require('socket.io');
 const { Server: HttpServer } = require('http');
 
@@ -30,6 +34,17 @@ async function main() {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: process.env.DATABASE,
+        mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
+        ttl: 60 // La sesion se invalida despues de 1 minuto
+    }),
+    secret: 'coderhouse',
+    resave: false,
+    saveUninitialized: false
+}));
 
 
 // Directorio publico
@@ -48,8 +63,11 @@ app.engine('hbs',
 //Rutas
 const webRouter = require('./routes/index');
 const testRouter = require('./routes/test');
+const sessionsRouter = require('./routes/session.router');
+
 app.use('/', webRouter);
 app.use('/', testRouter);
+app.use('/api/sessions', sessionsRouter);
 
 // Establece el directorio y el motor
 app.set('view engine', 'hbs');
@@ -68,9 +86,7 @@ io.on('connection', socket => {
     });
 
     Mensajes.getAll().then((msgs) => {
-        console.log(msgs);
         const normalizedMsgs = normalize(msgs, msgSchema);
-        console.log(JSON.stringify(normalizedMsgs, null, 2));
         // Envia los mensajes del servidor
         socket.emit('msgs', msgs);
     });
