@@ -39,7 +39,7 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: process.env.DATABASE,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-        ttl: 60 // La sesion se invalida despues de 1 minuto
+        ttl: 600 // La sesion se invalida despues de 10 minutos
     }),
     secret: 'coderhouse',
     resave: false,

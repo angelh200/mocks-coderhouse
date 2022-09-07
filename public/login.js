@@ -12,5 +12,11 @@ loginForm.addEventListener('submit', e => {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(res => res.json()).then(data => window.location="/");
+    }).then(res => res.json()).then(data => {
+        if(data.status === 'error') {
+            window.location = `/faillogin?msg=${data.error}`;
+        }else {
+            window.location = "/";
+        }
+    });
 });

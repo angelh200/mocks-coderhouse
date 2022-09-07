@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
 const collection = 'Users';
+
 const schema = mongoose.Schema({
-    name: String
+    email: String,
+    password: String
 }, {timestamps: true});
 
 const userService = mongoose.model(collection, schema);
