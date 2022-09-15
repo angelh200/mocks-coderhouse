@@ -1,5 +1,4 @@
-const randGen = (cant = 1e7) => {
-
+process.on('message', cant => {
     let randArray = [];
     for (let i = 0; i < cant; i++) {
         let rand = Math.floor(Math.random() * 1000 + 1);
@@ -15,9 +14,5 @@ const randGen = (cant = 1e7) => {
         }
     });
 
-    return result;
-}
-
-process.on('message', cant => {
-    process.send(randGen(cant));
+    process.send(result);
 });
