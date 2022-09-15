@@ -29,4 +29,17 @@ router.get('/logout', (req, res) => {
   res.render('logout', req.session.user);
 })
 
+router.get('/info', (req, res) => {
+  console.log(process.memoryUsage());
+  res.render('info', {
+    inputArgs: process.argv.slice(2),
+    path: process.argv[0],
+    os: process.platform,
+    id: process.pid,
+    version: process.version,
+    cwd: process.cwd(),
+    memory: process.memoryUsage()
+  });
+});
+
 module.exports = router;

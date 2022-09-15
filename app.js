@@ -21,7 +21,14 @@ const hbs = require('express-handlebars');
 const Productos = require('./model/Productos');
 const Mensajes = require('./model/Mensajes');
 
-const PORT = 3000;
+//Process arguments
+const parseArgs = require('minimist');
+const options = {
+    default: {
+        port: 8080
+    }
+};
+const { port } = parseArgs(process.argv.slice(2), options);
 
 //Conexion a la base de datos de mongoose
 const mongoose = require('mongoose');
@@ -64,10 +71,12 @@ app.engine('hbs',
 const webRouter = require('./routes/index');
 const testRouter = require('./routes/test');
 const sessionsRouter = require('./routes/session.router');
+const api = require('./routes/api');
 
 app.use('/', webRouter);
 app.use('/', testRouter);
 app.use('/api/sessions', sessionsRouter);
+app.use('/api', api);
 
 // Establece el directorio y el motor
 app.set('view engine', 'hbs');
@@ -107,6 +116,6 @@ io.on('connection', socket => {
     });
 })
 
-httpServer.listen(PORT, () => {
-    console.log(`Servidor activo en el puerto ${PORT}`);
+httpServer.listen(port, () => {
+    console.log(`Servidor activo en el puerto ${port}`);
 });
