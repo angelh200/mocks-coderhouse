@@ -21,14 +21,8 @@ const hbs = require('express-handlebars');
 const Productos = require('./model/Productos');
 const Mensajes = require('./model/Mensajes');
 
-//Process arguments
-const parseArgs = require('minimist');
-const options = {
-    default: {
-        port: 8080
-    }
-};
-const { port } = parseArgs(process.argv.slice(2), options);
+
+const PORT = process.env.PORT;
 
 //Conexion a la base de datos de mongoose
 const mongoose = require('mongoose');
@@ -116,6 +110,6 @@ io.on('connection', socket => {
     });
 })
 
-httpServer.listen(port, () => {
-    console.log(`Servidor activo en el puerto ${port}`);
+httpServer.listen(PORT, () => {
+    console.log(`Servidor activo en el puerto ${PORT}`);
 });
